@@ -1,0 +1,43 @@
+{
+  "android_release": "12",
+  "sdk_int": 32,
+  "spl": "2022-07-05",
+  "vendor_spl": "2022-07-05",
+  "build_fingerprint": "google/oriole/oriole:12/SP2A.220505.008/8782922:user/release-keys",
+  "manufacturer": "Google",
+  "model": "Pixel 6",
+  "device": "oriole",
+  "kernel_version": "5.10.107-android12-9-00027-g43f22c0eff7d-ab8547278",
+  "soc_model": "GS101",
+  "soc_manufacturer": "Google",
+  "abis": ["arm64-v8a", "armeabi-v7a"],
+  "gpu": {
+    "vendor": "mali",
+    "mali_driver": "r32p1",
+    "adreno_driver": null,
+    "driver_blob_paths": {
+      "/vendor/lib64/libGLES_mali.so": "r32p1"
+    }
+  },
+  "selinux_mode": "enforcing",
+  "bootloader_locked": true,
+  "rollback_index": null,
+  "verified_boot_state": "green",
+  "mte_enabled": false,
+  "treble_enabled": true,
+  "dynamic_partitions": true,
+  "collector_mode": "adb",
+  "collected_at": "2026-07-09T00:00:00Z",
+  "raw_props": {
+    "ro.build.version.release": "12",
+    "ro.build.version.sdk": "32",
+    "ro.build.version.security_patch": "2022-07-05",
+    "ro.vendor.build.security_patch": "2022-07-05",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 6",
+    "ro.product.device": "oriole",
+    "ro.soc.model": "GS101",
+    "ro.soc.manufacturer": "Google",
+    "ro.boot.verifiedbootstate": "green"
+  }
+}

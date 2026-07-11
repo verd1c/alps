@@ -1,0 +1,37 @@
+{
+  "android_release": "14",
+  "sdk_int": 34,
+  "spl": "2023-11-05",
+  "vendor_spl": "2023-11-05",
+  "build_fingerprint": "google/oriole/oriole:14/UP1A.231105.003/11010452:userdebug/dev-keys",
+  "manufacturer": "Google",
+  "model": "Pixel 6",
+  "device": "oriole",
+  "kernel_version": "5.10.198-android13-4-00007-g5deb32be5310-ab11004988",
+  "soc_model": "GS101",
+  "soc_manufacturer": "Google",
+  "abis": ["arm64-v8a", "armeabi-v7a"],
+  "gpu": {
+    "vendor": "mali",
+    "mali_driver": "r44p1",
+    "adreno_driver": null,
+    "driver_blob_paths": {
+      "/vendor/lib64/libGLES_mali.so": "r44p1"
+    }
+  },
+  "selinux_mode": "enforcing",
+  "bootloader_locked": false,
+  "rollback_index": 0,
+  "verified_boot_state": "orange",
+  "mte_enabled": false,
+  "treble_enabled": true,
+  "dynamic_partitions": true,
+  "collector_mode": "adb",
+  "collected_at": "2026-07-09T00:00:00Z",
+  "raw_props": {
+    "ro.build.version.security_patch": "2023-11-05",
+    "ro.product.device": "oriole",
+    "ro.boot.verifiedbootstate": "orange",
+    "ro.boot.flash.locked": "0"
+  }
+}

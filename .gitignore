@@ -1,34 +1,40 @@
-# Gradle files
-.gradle/
+# Build artifacts
 build/
+build-*/
+_deps/
+out/
 
-# Local configuration file (sdk path, etc)
-local.properties
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
 
-# Log/OS Files
-*.log
-
-# Android Studio generated files and folders
-captures/
-.externalNativeBuild/
-.cxx/
-*.aab
-*.apk
-output-metadata.json
-
-# IntelliJ
-*.iml
+# IDE / editor
 .idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
+.vscode/
+.vs/
+*.user
+*.suo
 
-# Keystore files
-*.jks
-*.keystore
+# OS
+.DS_Store
+Thumbs.db
 
-# Google Services (e.g. APIs or Firebase)
-google-services.json
+# Coverage
+*.gcov
+*.gcda
+*.gcno
 
-# Android Profiling
-*.hprof
+# Local scratch
+scratch/
+scratchpad/
+/device_facts.json
+/findings.json
+/*_run.log
+docs/
+!tests/fixtures/*.json
