@@ -6,6 +6,8 @@
 
 ALPS is a tool very similar to [portbuster1337/lpe-toolkit](https://github.com/portbuster1337/lpe-toolkit), but for Android. It automatically collects and evaluates all required data and state of your device against a list of known local privilege escalation (LPE) vulnerabilities and determines which ones apply to your device and have a public exploit. It then allows you to choose and compile the exploit for your device which you can then use to gain temporary root privileges while keeping the bootloader locked and passing `Play Integrity` and `Key Attestation`.
 
+<img width="1109" height="641" alt="image" src="https://github.com/user-attachments/assets/c6d9c9b9-b1bb-49dd-80a4-3bfc6e3d4127" />
+
 In essence, it performs the following:
 * **Collect** device state (props, patch levels, GPU driver blob versions,
   verified-boot / rollback flags).
