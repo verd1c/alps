@@ -34,12 +34,15 @@ rule pins an upstream commit; the runner clones it into
 sandbox path (`/data/local/tmp/alps-work/<CVE>/`), and executes. See
 [docs/EXPLOIT.md](docs/EXPLOIT.md) for the schema and gate checklist.
 
-## Quickstart: device build
+## Quickstart
 
-The device-side build is `arm64-v8a`; the resulting binary is `adb
-push`ed and run inside `adb shell`. The rule KB is embedded at build
-time, so deployment is a single file.
+For the full functionality of ALPS, you will need both an on-device binary, and a host-side binary:
+- **Collector (on-device):** gather on-device information.
+- **Runner (host-side):** compile exploits and control the collector end-to-end.
 
+### Device Build
+
+To build the on-device binary with the rule KB embedded at build time:
 ```bash
 cmake -B build/arm64 -G Ninja \
     -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
@@ -49,26 +52,23 @@ cmake -B build/arm64 -G Ninja \
     -DCMAKE_BUILD_TYPE=Release
 cmake --build build/arm64
 
+# push it to the device
 adb push build/arm64/src/cli/alps /data/local/tmp/
 adb shell 'chmod +x /data/local/tmp/alps && /data/local/tmp/alps scan'
 ```
 
-For rule-KB development, `--rules <dir>` overrides the built-in KB with
-YAML files on disk.
+This will allow a single binary build. If you need rule-KB development, `--rules <dir>` overrides the built-in KB with YAML files on disk.
 
-### Host build (needed to use the runner)
+### Host Build
 
-The runner shells out to `git`, `cmake`, and `adb`, all host tools.
-On Linux, macOS, or WSL:
+The runner shells out to a few host tools. On Linux, macOS, or WSL:
 
 ```bash
 cmake -B build/host -G Ninja -DCMAKE_BUILD_TYPE=Release
 cmake --build build/host
 ```
 
-On Windows (Visual Studio 2022 Build Tools installed), the Android SDK
-already bundles CMake, Ninja, ADB, and the NDK. From a Developer
-PowerShell:
+On Windows (Visual Studio 2022 Build Tools installed), the Android SDK already bundles CMake, Ninja, ADB, and the NDK. From a Developer PowerShell:
 
 ```powershell
 $sdk  = "$env:LOCALAPPDATA\Android\Sdk"
@@ -83,10 +83,7 @@ cmake -B build\host -G Ninja -DCMAKE_BUILD_TYPE=Release
 cmake --build build\host
 ```
 
-The host build produces `alps.exe` under `build/host/src/cli/`. Collector
-and TUI subcommands are disabled on Windows (they use POSIX headers); the
-runner and all read-only subcommands work. On the device (arm64) binary,
-every state-changing runner verb refuses with a message pointing here.
+The host build produces `alps.exe` under `build/host/src/cli/`. 
 
 ### End-to-end run against a connected device
 
