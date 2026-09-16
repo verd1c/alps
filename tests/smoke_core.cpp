@@ -106,7 +106,11 @@ int main(int argc, char** argv)
         EXPECT(r.exploit.status == ExploitStatus::WEAPONIZED_PUBLIC);
         EXPECT(r.exploit.gives == ExploitGives::KERNEL_RW);
         EXPECT(!r.exploit.user_interaction);
-        EXPECT(r.downgrade.blocked_by.size() == 2);
+        // All 31 shipped rules declare exactly one downgrade blocker. The
+        // `e.g. bootloader_locked, rollback_index` comment on DowngradeInfo
+        // lists two *examples*, not two required entries.
+        EXPECT(r.downgrade.blocked_by.size() == 1);
+        EXPECT(r.downgrade.blocked_by[0] == "rollback_index");
         EXPECT(!r.refs.empty());
     }
     EXPECT(found_mali);

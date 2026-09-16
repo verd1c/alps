@@ -40,6 +40,16 @@ FetchContent_Declare(
 set(CLI11_BUILD_TESTS    OFF CACHE INTERNAL "")
 set(CLI11_BUILD_EXAMPLES OFF CACHE INTERNAL "")
 
+# yaml-cpp 0.8.0 still declares `cmake_minimum_required(VERSION 3.4)`, and
+# CMake 4.0 removed compatibility with anything below 3.5, so configuring the
+# dependency aborts with "Compatibility with CMake < 3.5 has been removed".
+# Windows builds use the CMake the Android SDK bundles (3.2x) and never hit
+# this; a Linux host with a current CMake does. Set the policy floor for the
+# fetched subprojects only - ALPS itself already requires 3.22.
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 4.0 AND NOT DEFINED CMAKE_POLICY_VERSION_MINIMUM)
+    set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
+endif()
+
 FetchContent_MakeAvailable(nlohmann_json yaml_cpp CLI11)
 
 # Treat dependency headers as SYSTEM so ALPS_STRICT (-Werror on our code)
