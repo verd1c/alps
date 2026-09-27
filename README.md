@@ -1,7 +1,5 @@
 # ALPS: Android LPE Suite
 
-> Use only on devices you own or are authorized to test.
-
 ## What is this?
 
 ALPS is a tool very similar to [portbuster1337/lpe-toolkit](https://github.com/portbuster1337/lpe-toolkit), but for Android. It automatically collects and evaluates all required data and state of your device against a list of known local privilege escalation (LPE) vulnerabilities and determines which ones apply to your device and have a public exploit. It then allows you to choose and compile the exploit for your device which you can then use to gain temporary root privileges while keeping the bootloader locked and passing `Play Integrity` and `Key Attestation`.
@@ -87,36 +85,13 @@ The host build produces `alps.exe` under `build/host/src/cli/`.
 
 ### End-to-end run against a connected device
 
-Once you have both binaries (arm64 pushed to `/data/local/tmp/alps`, host
-built at `build/host/src/cli/alps`), the full pipeline is a single verb.
-The runner uses `--facts` to know the device's verdict; on Windows, run
-`adb shell alps collect` first and trim the output to pure JSON.
-
 ```powershell
 # 1. Collect device facts using the on-device binary.
 adb shell /data/local/tmp/alps collect > device_facts.json
-# (On Windows, adb wraps stdout in daemon banners; clip to the JSON:)
-$c = Get-Content device_facts.json -Raw
-$c.Substring($c.IndexOf('{'), $c.LastIndexOf('}') - $c.IndexOf('{') + 1) `
-    | Set-Content device_facts.json -NoNewline
 
-# 2. One-shot pipeline: prereq, fetch, build, deploy, run.
-build\host\src\cli\alps.exe exploit go CVE-2022-38181 `
-    --i-am-authorized-to-test --facts device_facts.json --cleanup-after
+# 2. One-shot prereq, fetch, build, deploy, run.
+build\host\src\cli\alps.exe exploit go CVE-2022-38181 --i-am-authorized-to-test --facts device_facts.json --cleanup-after
 ```
-
-On Linux or macOS the equivalent:
-
-```bash
-adb shell /data/local/tmp/alps collect > device_facts.json
-build/host/src/cli/alps exploit go CVE-2022-38181 \
-    --i-am-authorized-to-test --facts device_facts.json --cleanup-after
-```
-
-Each stage streams progress to stderr; every action appends a JSONL
-record to `~/.alps/audit.log` (`alps exploit audit` tails it). Cloned
-source lives under `~/.alps/workspace/<CVE>/src`; build artifacts under
-`build/`; files pulled from the device under `device_pulls/`.
 
 Individual verbs work the same way when you want to inspect a stage:
 
